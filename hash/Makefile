@@ -1,6 +1,6 @@
 CXX = g++
-CXXFLAGS = -Wall -I/usr/include/crypto++  # Путь к заголовочным файлам
-LDFLAGS = -L/usr/lib/x86_64-linux-gnu -lcryptopp  # Путь к библиотеке
+CXXFLAGS = -Wall -I/usr/include/crypto++  
+LDFLAGS = -L/usr/lib/x86_64-linux-gnu -lcryptopp  
 
 all: hasher
 
