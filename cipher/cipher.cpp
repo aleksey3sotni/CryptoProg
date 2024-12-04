@@ -40,7 +40,7 @@ void handleEncryption(const string& pass, const string& input, const string& out
         new FileSink(outFile)));
 
     // Save the password
-    ofstream passFile("/home/stud/git_belik/CryptoProg/cipher/userPass");
+    ofstream passFile("/home/stud/CryptoProg/cipher/userPass");
     if (!passFile) {
         cerr << "Ошибка: не удаётся открыть файл userPass для записи." << endl;
         return;
@@ -49,7 +49,7 @@ void handleEncryption(const string& pass, const string& input, const string& out
     passFile.close();
 
     // Save the key
-    ofstream keyFile("/home/stud/git_belik/CryptoProg/cipher/Key", ios::binary);
+    ofstream keyFile("/home/stud/CryptoProg/cipher/Key", ios::binary);
     if (!keyFile) {
         cerr << "Ошибка: не удаётся открыть файл Key для записи." << endl;
         return;
@@ -58,7 +58,7 @@ void handleEncryption(const string& pass, const string& input, const string& out
     keyFile.close();
 
     // Save IV
-    ofstream ivFile("/home/stud/git_belik/CryptoProg/cipher/fileIV", ios::binary);
+    ofstream ivFile("/home/stud/CryptoProg/cipher/fileIV", ios::binary);
     if (!ivFile) {
         cerr << "Ошибка: не удаётся открыть файл fileIV для записи." << endl;
         return;
@@ -69,7 +69,7 @@ void handleEncryption(const string& pass, const string& input, const string& out
 
 void handleDecryption(const string& pass, const string& input, const string& output) {
     string storedPass;
-    FileSource("/home/stud/git_belik/CryptoProg/cipher/userPass", true, new StringSink(storedPass));
+    FileSource("/home/stud/CryptoProg/cipher/userPass", true, new StringSink(storedPass));
 
     if (pass != storedPass) {
         cout << "Неправильный пароль\n";
@@ -77,10 +77,10 @@ void handleDecryption(const string& pass, const string& input, const string& out
     }
 
     CryptoPP::byte key[SHA256::DIGESTSIZE];
-    FileSource("/home/stud/git_belik/CryptoProg/cipher/Key", true, new ArraySink(key, sizeof(key)));
+    FileSource("/home/stud/CryptoProg/cipher/Key", true, new ArraySink(key, sizeof(key)));
 
     CryptoPP::byte iv[AES::BLOCKSIZE];
-    FileSource("/home/stud/git_belik/CryptoProg/cipher/fileIV", true, new ArraySink(iv, sizeof(iv)));
+    FileSource("/home/stud/CryptoProg/cipher/fileIV", true, new ArraySink(iv, sizeof(iv)));
 
     CBC_Mode<AES>::Decryption decryptor;
     decryptor.SetKeyWithIV(key, sizeof(key), iv);
